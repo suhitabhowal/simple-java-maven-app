@@ -37,8 +37,8 @@ pipeline {
                     url:"http://54.201.149.191:8081/artifactory",
                     credentialsId:'admin'
                 )
-                rtMavenDeveloper(
-                    id:"MAVEN_DEVELOPER",
+                rtMavenDeployer(
+                    id:"MAVEN_DEPLOYER",
                     serverId:"ARTIFACTORY_SERVER",
                     releaseRepo:"libs-release-local",
                     snapshotRepo:"libs-snapshot-local"
