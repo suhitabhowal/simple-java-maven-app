@@ -40,7 +40,7 @@ pipeline {
                 rtMavenDeveloper(
                     id:"MAVEN_DEVELOPER",
                     serverId:"ARTIFACTORY_SERVER",
-                    releaseRepo:"libs-release-local"
+                    releaseRepo:"libs-release-local",
                     snapshotRepo:"libs-snapshot-local"
                     )
                rtMavenResolver(
