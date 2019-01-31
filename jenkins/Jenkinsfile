@@ -35,12 +35,47 @@ pipeline {
                 rtserver(
                     id:"ARTIFACTORY_SERVER",
                     url:"http://54.201.149.191:8081/artifactory",
-                    credentialsId:admin
+                    credentialsId:'admin'
                 )
+                rtMavenDeveloper(
+                    id:"MAVEN_DEVELOPER",
+                    serverId:"ARTIFACTORY_SERVER",
+                    releaseRepo:"libs-release-local"
+                    snapshotRepo:"libs-snapshot-local"
+                    )
+               rtMavenResolver(
+                    id:"MAVEN_RESOLVER",
+                    serverId:"ARTIFACTORY_SERVER",
+                    releaseRepo:"libs-release"
+                    snapshotRepo:"libs-snapshot"
+                    )
+                
             }
         }
         
+        stage('Exec Maven'){
+            
+            steps{
+                rtMavenRun(
+                    tool:Maven 3.6.0
+                    pom:'pom.cml'
+                    goals:'clean install'
+                    deployerId:"MAVEN_DEPLOYER",
+                    resolverId:'MAVEN_RESOLVER'
+                    
+                    )
+                
+            }
+            
+        }
         
+        stage('Publish Build Info){
+              steps{
+                  rtPublishBuildInfo(
+                      serverId:"ARTIFACTORY_SERVER"
+                      )
+              }
+        }
         stage('Deploy'){
               steps{
                     //sh 'java -jar target/my-app-1.0-SNAPSHOT.jar'
