@@ -23,13 +23,22 @@ pipeline {
           }
       }
         }  
-            
+  
+    stage('SonarQube analysis') {
+    withSonarQubeEnv('My SonarQube Server')
+        {
+      // requires SonarQube Scanner for Maven 3.2+
+      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'    
+        }
+    }
+        
+   /*comment starts         
          stage('clone'){
             steps{
                 git branch: 'master',url:"https://github.com/suhitabhowal/simple-java-maven-app.git/"
             }
         }
-        
+    
         stage('Artifactory Configuration'){
             steps{
                 rtServer(
@@ -87,3 +96,4 @@ pipeline {
        
 }
 }
+Comment end*/
