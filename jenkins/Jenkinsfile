@@ -32,7 +32,7 @@ pipeline {
         }
     }
         
-   /*comment starts         
+ /*      
          stage('clone'){
             steps{
                 git branch: 'master',url:"https://github.com/suhitabhowal/simple-java-maven-app.git/"
@@ -95,5 +95,6 @@ pipeline {
             }
        
 }
+comment ends*/
 }
-Comment end*/
+
